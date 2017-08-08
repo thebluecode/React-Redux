@@ -1,2 +1,2 @@
 # ReactJsProjects
-Projects created ReactJs library and related technologies.
+Projects created using ReactJs library and related technologies.
