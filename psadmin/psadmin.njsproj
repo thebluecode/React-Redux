@@ -54,12 +54,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\components\app.js" />
+    <Compile Include="src\components\authors\authorForm.js" />
     <Compile Include="src\components\authors\authorList.js" />
     <Compile Include="src\components\authors\authorPage.js" />
+    <Compile Include="src\components\authors\manageAuthorPage.js" />
     <Compile Include="src\components\common\header.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\components\notFoundPage.js" />
+    <Compile Include="src\components\common\textInput.js" />
     <Compile Include="src\main.js" />
     <Compile Include="src\routes.js" />
   </ItemGroup>
