@@ -69,6 +69,7 @@
     <Compile Include="src\components\authors\authorForm.js" />
     <Compile Include="src\components\authors\authorList.js" />
     <Compile Include="src\components\authors\authorPage.js" />
+    <Compile Include="src\components\authors\authorsDropDownList.js" />
     <Compile Include="src\components\authors\manageAuthorPage.js" />
     <Compile Include="src\components\common\header.js">
       <SubType>Code</SubType>

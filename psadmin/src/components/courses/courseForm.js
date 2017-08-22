@@ -2,12 +2,14 @@
 
 var React = require('react');
 var Input = require('../common/textInput');
+var AuthorsDropDownList = require('../authors/authorsDropDownList');
 
 var CourseForm = React.createClass({
 
     propTypes: {
         course: React.PropTypes.object.isRequired,
         onChange: React.PropTypes.func.isRequired,
+        onChangeAuthor: React.PropTypes.func.isRequired,
         onSave: React.PropTypes.func.isRequired,
         errors: React.PropTypes.object
     },
@@ -22,6 +24,11 @@ var CourseForm = React.createClass({
                     value={this.props.course.title}
                     onChange={this.props.onChange}
                     error={this.props.errors.title} />
+
+                <AuthorsDropDownList
+                    name="author"
+                    label="Author"
+                    onChangeAuthor={this.props.onChangeAuthor} />
 
                 <Input
                     name="category"

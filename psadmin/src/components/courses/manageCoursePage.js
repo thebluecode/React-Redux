@@ -6,6 +6,7 @@ var Link = Router.Link;
 var CourseForm = require('./courseForm');
 var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
+var AuthorStore = require('../../stores/authorStore');
 var toastr = require('toastr');
 
 var CoursePage = React.createClass({
@@ -49,6 +50,13 @@ var CoursePage = React.createClass({
         var field = event.target.name;
         var value = event.target.value;
         this.state.course[field] = value;
+        return this.setState({ course: this.state.course });
+    },
+
+    setCourseAuthorState: function (event) {
+        this.setState({ dirty: true });
+        var authorId = event.target.value;
+        this.state.course.author = AuthorStore.getAuthorById(authorId);
         return this.setState({ course: this.state.course });
     },
 
@@ -101,6 +109,7 @@ var CoursePage = React.createClass({
                 <CourseForm
                     course={this.state.course}
                     onChange={this.setCourseState}
+                    onChangeAuthor={this.setCourseAuthorState}
                     onSave={this.saveCourse}
                     errors={this.state.errors} />
             </div>
