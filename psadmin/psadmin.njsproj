@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8db4fb0a-e0a5-4955-b2a9-04a6902a2c46}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -23,6 +23,8 @@
     <Content Include="eslint.config.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
+    <Content Include="src\components\courses\courseList.js" />
+    <Content Include="src\components\courses\coursePage.js" />
     <Content Include="src\components\homePage.js">
       <SubType>Code</SubType>
     </Content>
@@ -38,6 +40,7 @@
     <Folder Include="dist\images\" />
     <Folder Include="dist\scripts\" />
     <Folder Include="src\" />
+    <Folder Include="src\components\courses\" />
     <Folder Include="src\dispatcher\" />
     <Folder Include="src\components\" />
     <Folder Include="src\components\about\" />
@@ -53,8 +56,12 @@
     <Compile Include="dist\scripts\bundle.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="src\actions\authorActions.js" />
+    <Compile Include="src\actions\courseActions.js" />
+    <Compile Include="src\actions\initializeActions.js" />
     <Compile Include="src\api\authorApi.js" />
     <Compile Include="src\api\authorData.js" />
+    <Compile Include="src\api\courseApi.js" />
+    <Compile Include="src\api\courseData.js" />
     <Compile Include="src\components\about\aboutPage.js">
       <SubType>Code</SubType>
     </Compile>
@@ -66,6 +73,8 @@
     <Compile Include="src\components\common\header.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\components\courses\courseForm.js" />
+    <Compile Include="src\components\courses\manageCoursePage.js" />
     <Compile Include="src\components\notFoundPage.js" />
     <Compile Include="src\components\common\textInput.js" />
     <Compile Include="src\constants\actionTypes.js" />
@@ -73,6 +82,7 @@
     <Compile Include="src\main.js" />
     <Compile Include="src\routes.js" />
     <Compile Include="src\stores\authorStore.js" />
+    <Compile Include="src\stores\courseStore.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
