@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import LoginInstagram from '../login/LoginInstagram';
 import InstaMap from '../map/InstaMap';
-import fetch from 'node-fetch';
+import Profile from '../profile/Profile';
+import axios from 'axios';
+import endpoints from '../../constants/InstagramApiEndpoints';
+import api from '../../api/InstagramApi';
 
 class HomePage extends Component {
 
@@ -12,27 +15,71 @@ class HomePage extends Component {
             grant_type: 'authorization_code',
             redirect_uri: 'http://localhost:3000/'
         },
-        user: {},
+        loggedUser: {},
         accessToken: '',
         isLogged: false,
-        hasCoordinates: false,
-        position: { lat: 37.778519, lng: -122.405640 }
-     }
-    
-    setCoordinates = (position) => {
-        if (position) {
-            this.setState({
-                position: {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
+        //position: { lat: 37.778519, lng: -122.405640 },
+        position: { lat: -3.7412924923836, lng: -38.472087683405 },
+        posts: []
+    }
+
+    getCurrentPosition = (position) => {
+        return {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }
+    }
+
+    getLocationsByPosition = (position) => {
+        
+        let self = this;
+
+        // self.getRecentMediasByLocations('mock');
+
+        axios.get(endpoints.getLocationsUrl, {
+            params: {
+                lat: position.latitude,
+                lng: position.longitude,
+                access_token: this.state.accessToken
+            }
+        })
+        .then(function (response) {
+            self.getRecentMediasByLocations(response.data.data)
+        });
+    }
+
+    getRecentMediasByLocationId = (locationId) => {
+        
+        let self = this;
+
+        var url = endpoints.getRecentMediaUrl.replace('{location_id}', locationId)
+
+        axios.get(url, { params: { access_token: this.state.accessToken } })
+            .then(function (response) {
+                if (response.data.data.length > 0) {
+                    self.setState(prevState => ({ posts: prevState.posts.concat(response.data.data) }));
                 }
             });
+    }
 
-            //https://api.instagram.com/v1/locations/search?lat=-3.7360470999999995&lng=-38.4787131&access_token=5797952440.bb71d65.e1933b3674f84a7a9c8ecaaff75ee0a9
+    getRecentMediasByLocations = (arrLocations) => {
 
-            fetch('https://api.instagram.com/v1/locations/search?lat=-3.7360470999999995&lng=-38.4787131&access_token=5797952440.bb71d65.e1933b3674f84a7a9c8ecaaff75ee0a9').then(function(response){
-                console.log(response);
-            });
+        let self = this;
+
+        for (var i = 0; i < arrLocations.length; i++) {
+            self.getRecentMediasByLocationId(arrLocations[i].id);
+        }
+    }
+
+    populateMedias = (position) => {
+        if (position) {
+            this.getLocationsByPosition(this.getCurrentPosition(position));
+        }
+    }
+
+    setCoordinates = (position) => {
+        if (position) {
+            this.populateMedias(position);
         }
     }
 
@@ -57,10 +104,24 @@ class HomePage extends Component {
 
     onLoginSucceeded = (token) => {
         if (token) {
-            this.setState({ 
-                accessToken: token,
-                isLogged: true
-            }, () => { navigator.geolocation.getCurrentPosition(this.setCoordinates, this.handleCoordinatesError) });
+
+            api.setAccessToken(token);
+
+            let self = this;
+
+            axios.get(endpoints.getLoggedUserUrl, { params: { access_token: token } })
+            .then(function (response) {
+                if (response.data) {
+                    
+                    self.setState({ 
+                        loggedUser: response.data.data,
+                        isLogged: true,
+                        accessToken: token
+                    }, () => {
+                        navigator.geolocation.getCurrentPosition(self.setCoordinates, self.handleCoordinatesError)
+                    });
+                }
+            });
         }
     }
 
@@ -69,16 +130,23 @@ class HomePage extends Component {
             <div className="row">
                 <div className="App-panel col-lg-4">
                     <div className="App-panel-left row">
-                        <LoginInstagram
-                            clientId={this.state.authorization.client_id}
-                            redirectUri={this.state.authorization.redirect_uri}
-                            onSuccess={this.onLoginSucceeded} />
+
+                        {!this.state.isLogged ?
+
+                            <LoginInstagram
+                                clientId={this.state.authorization.client_id}
+                                redirectUri={this.state.authorization.redirect_uri}
+                                onSuccess={this.onLoginSucceeded} />
+                            :
+                            <Profile user={this.state.loggedUser} />
+                        }
                     </div>
                 </div>
                 <div className="App-panel col-lg-8">
                     <div className="App-panel-right row">
                         <InstaMap
-                            position={this.state.position} />
+                            position={this.state.position}
+                            markers={this.state.posts} />
                     </div>
                 </div>
             </div>

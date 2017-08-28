@@ -15,7 +15,7 @@ class LoginInstagram extends Component {
         var url = 'https://api.instagram.com/oauth/authorize/?client_id='+this.props.clientId+'&redirect_uri='+this.props.redirectUri+'&response_type=token&scope=basic+public_content+follower_list+comments+relationships+likes';
 
         function autheticateUser() {
-            window.location = url;
+            window.location.href = url;
         }
 
         return (
