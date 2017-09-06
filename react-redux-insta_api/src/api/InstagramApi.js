@@ -3,11 +3,11 @@ class InstagramApi {
 
     static accessToken = '';
 
-    static setAccessToken = function(token) {
+    static setAccessToken(token){
         InstagramApi.accessToken = token;
     }
     
-    static getAccessToken = function() {
+    static getAccessToken() {
         return InstagramApi.accessToken;
     }
 }

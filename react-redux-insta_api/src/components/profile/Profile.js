@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 class Profile extends Component {
     render() {
@@ -10,10 +11,10 @@ class Profile extends Component {
                 <br />
                 {
                     this.props.position ?
-                    <a
-                        href={'/details/'+ this.props.user.id + '/' + this.props.position.lat + '/' + this.props.position.lng } >
+                    <Link
+                        to={'/details/'+ this.props.user.id + '/' + this.props.position.lat + '/' + this.props.position.lng } >
                         @{this.props.user.username}
-                    </a>
+                    </Link>
                     :
                     <a href={'https://www.instagram.com/' + this.props.user.username }>@{this.props.user.username}</a>
                 }

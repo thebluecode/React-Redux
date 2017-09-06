@@ -6,7 +6,7 @@ import api from '../../api/InstagramApi';
 class Details extends Component {
 
     state = {
-        accessToken: '5797952440.bb71d65.e1933b3674f84a7a9c8ecaaff75ee0a9',
+        accessToken: api.getAccessToken(),
         medias: []
     }
 
@@ -19,6 +19,8 @@ class Details extends Component {
 
             let self = this;
 
+            console.log('ACCESS TOKEN', this.state.accessToken);
+
             axios.get(endpoints.getMediaUrl, {
                 params: {
                     lat: lat,
@@ -28,7 +30,7 @@ class Details extends Component {
             })
             .then(function (response) {
                 self.setState({
-                    medias: response.data.data
+                    medias: response.data.data.filter((media) => media.user.id == user_id)
                 });
             });
         }

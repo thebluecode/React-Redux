@@ -107,6 +107,8 @@ class HomePage extends Component {
 
             api.setAccessToken(token);
 
+            console.log('TOKEN TOKEN', api.getAccessToken());
+
             let self = this;
 
             axios.get(endpoints.getLoggedUserUrl, { params: { access_token: token } })

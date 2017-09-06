@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\actions",
+    "\\src\\components",
+    "\\src\\components\\course",
+    "\\src\\reducers",
+    "\\src\\store",
+    "\\tools"
+  ],
+  "PreviewInSolutionExplorer": false
+}
