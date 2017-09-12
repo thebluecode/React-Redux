@@ -14,11 +14,11 @@ const SelectInput = ({name, label, onChange, defaultOption, value, error, option
                     <option value="">{defaultOption}</option>
 
                     {options.map((option) => {
-                        return <option 
+                        return (<option 
                                     key={option.value}
                                     value={option.value} >
                                     {option.text}
-                                </option>
+                                </option>);
                     })
                     }
 
@@ -36,7 +36,7 @@ SelectInput.propTypes = {
     defaultOption: PropTypes.string.isRequired,
     value: PropTypes.string,
     error: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.object),
+    options: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default SelectInput;
