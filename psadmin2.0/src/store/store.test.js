@@ -13,7 +13,7 @@ describe('Store', () => {
         };
 
         // act
-        const action = courseActions.createCourseSuccess(course)
+        const action = courseActions.createCourseSuccess(course);
         store.dispatch(action);
 
         // assert
